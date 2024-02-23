@@ -2,6 +2,10 @@ const express= require('express');
 const port=3000;
 const app=express();
 const mongoose =require('mongoose');
+
+
+const Product=require("./model/product.js");
+
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGO)
@@ -12,6 +16,32 @@ mongoose.connect(process.env.MONGO)
 })
 
 
+
+async function setdata() {
+    const apiUrl = 'https://s3.amazonaws.com/roxiler.com/product_transaction.json';
+
+    try {
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        
+       // Check the fetched data
+
+        // Iterate over each object in the data array and create a product for each
+        await Product.insertMany(data);
+
+        console.log('Products created successfully');
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+//setdata();
+
+
+
+
+
+
 app.listen(port,(err)=>{
     console.log('server is successful',port);
     if(err){
@@ -19,7 +49,7 @@ app.listen(port,(err)=>{
     }
 })
 
-
+app.use("/",require("./routes/index.js"));
 
 
 
