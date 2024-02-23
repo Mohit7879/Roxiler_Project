@@ -4,7 +4,7 @@ const app=express();
 const mongoose =require('mongoose');
 
 
-const Product=require("./model/product.js");
+
 
 require('dotenv').config();
 
@@ -35,7 +35,7 @@ async function setdata() {
     }
 }
 
-//setdata();
+
 
 
 

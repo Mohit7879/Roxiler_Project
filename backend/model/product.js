@@ -38,4 +38,4 @@ const productSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Pr', productSchema);
+module.exports = mongoose.model('P', productSchema);
