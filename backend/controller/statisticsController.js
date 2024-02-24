@@ -1,14 +1,12 @@
 const Products = require("../model/product.js");
-function getMonthNumber(month) {
-    const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-    return( months.indexOf( month) + 1); // Adding 1 because month indexes start from 0
-}
+const {getMonth}=require("../utility/getMonth.js")
+
 module.exports.allstatistics= async (req, res) => {
   try {
 
 
-    let month = (req.params.month || '').toLowerCase();
-    const selectedMonth = getMonthNumber(month); 
+    let month = (req.params.month || '')
+    const selectedMonth = getMonth(month); 
 
     // Calculate total sale amount of selected month
     const totalSaleAmount = await Products.aggregate([

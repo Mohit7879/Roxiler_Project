@@ -1,9 +1,11 @@
 const Product = require('../model/product.js');
+const {getMonth}=require("../utility/getMonth.js")
 
 // Define API endpoint for bar chart
  module.exports.barchart=async (req, res) => {
     try {
-        const selectedMonth = parseInt(req.params.month);
+        const month = req.params.month;
+        const selectedMonth=getMonth(month);
 
         const maxPriceDoc = await Product.findOne().sort({ price: -1 });
 

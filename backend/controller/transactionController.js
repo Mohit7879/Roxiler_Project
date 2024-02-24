@@ -1,8 +1,6 @@
 const Product = require("../model/product.js");
-function getMonthNumber(month) {
-    const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-    return( months.indexOf( month) + 1); // Adding 1 because month indexes start from 0
-}
+const {getMonth}=require("../utility/getMonth.js")
+
 
 module.exports.allTransactions = async (req, res) => {
     try {
@@ -12,12 +10,12 @@ module.exports.allTransactions = async (req, res) => {
 
         // Search parameters
         const search = req.query.search || '';
-        let month = (req.query.month || '').toLowerCase(); // Month parameter converted to lowercase
+        let month = (req.query.month || '')
 
         
     
         // Convert month name to number
-       const selectedMonth = getMonthNumber(month);
+       const selectedMonth = getMonth(month);
            
 
 

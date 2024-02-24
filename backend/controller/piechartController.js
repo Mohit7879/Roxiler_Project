@@ -1,9 +1,10 @@
 const Product=require("../model/product.js");
+const {getMonth}=require("../utility/getMonth.js")
 
 module.exports.piechart=async (req,res)=>{
   try{
-    const selectedMonth = req.params.month; // Get the selected month from the request parameters
-
+    const month = req.params.month; // Get the selected month from the request parameters
+     const selectedMonth= getMonth(month);
     const pipeline=[ 
      {
         $match: {
