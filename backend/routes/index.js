@@ -5,6 +5,7 @@ router.get('/api/addData',addData)
 router.use('/api/transactions',require("../routes/transactions.js"));
 router.use('/api/statistics',require("../routes/statistics.js"));
 router.use('/api/barchart',require("../routes/barchart.js"));
+router.use('/api/piechart',require("../routes/piechart.js"));
 
 
 module.exports=router;
