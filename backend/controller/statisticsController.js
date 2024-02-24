@@ -6,8 +6,8 @@ function getMonthNumber(month) {
 module.exports.allstatistics= async (req, res) => {
   try {
 
-    
-    let month = (req.query.month || '').toLowerCase();
+
+    let month = (req.params.month || '').toLowerCase();
     const selectedMonth = getMonthNumber(month); 
 
     // Calculate total sale amount of selected month
