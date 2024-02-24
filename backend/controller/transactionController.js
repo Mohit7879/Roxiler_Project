@@ -1,8 +1,9 @@
 const Product = require("../model/product.js");
 const {getMonth}=require("../utility/getMonth.js")
+const {errorhandler}=require("../utility/error.js")
 
 
-module.exports.allTransactions = async (req, res) => {
+module.exports.allTransactions = async (req, res,next) => {
     try {
         // Pagination parameters
         const page = parseInt(req.query.page) || 1;
@@ -16,6 +17,10 @@ module.exports.allTransactions = async (req, res) => {
     
         // Convert month name to number
        const selectedMonth = getMonth(month);
+       if(selectedMonth==0){
+        
+        return next(errorhandler(401,"Invalid month"));
+     }
            
 
 
@@ -64,7 +69,6 @@ module.exports.allTransactions = async (req, res) => {
 
         res.json(transactions);
     } catch (error) {
-        console.error('Error fetching transactions:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+       next(error);
     }
 }

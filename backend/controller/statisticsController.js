@@ -1,12 +1,17 @@
 const Products = require("../model/product.js");
 const {getMonth}=require("../utility/getMonth.js")
+const {errorhandler}=require("../utility/error.js")
 
-module.exports.allstatistics= async (req, res) => {
+module.exports.allstatistics= async (req, res,next) => {
   try {
 
 
     let month = (req.params.month || '')
     const selectedMonth = getMonth(month); 
+    if(selectedMonth==0){
+        
+       return next(errorhandler(401,"Invalid month"));
+    }
 
     // Calculate total sale amount of selected month
     const totalSaleAmount = await Products.aggregate([
@@ -49,8 +54,7 @@ console.log(totalSaleAmount)
       totalUnsoldItems
     });
   } catch (error) {
-    console.error('Error fetching statistics:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+   next(error)
   }
 };
 

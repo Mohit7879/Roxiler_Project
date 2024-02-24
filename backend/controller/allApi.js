@@ -1,7 +1,15 @@
+const {errorhandler}=require("../utility/error.js")
+const {getMonth}=require("../utility/getMonth.js")
 
 const axios = require('axios');
-module.exports.allApi= async (req, res) => {
+module.exports.allApi= async (req, res,next) => {
     const month = req.params.month;
+
+    const selectedMonth= getMonth(month);
+    if(selectedMonth==0){
+     
+      return next(errorhandler(401,"Invalid month"));
+   }
    
 
     try {
@@ -20,8 +28,8 @@ module.exports.allApi= async (req, res) => {
 
         res.json(responseData);
     } catch (error) {
-        console.error('Error fetching combined data:', error.message);
-        res.status(500).json({ error: 'Internal Server Error' });
+      
+      next(error)
     }
 };
 

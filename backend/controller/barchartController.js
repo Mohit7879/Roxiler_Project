@@ -1,11 +1,17 @@
 const Product = require('../model/product.js');
 const {getMonth}=require("../utility/getMonth.js")
+const {errorhandler}=require("../utility/error.js")
 
 // Define API endpoint for bar chart
- module.exports.barchart=async (req, res) => {
+ module.exports.barchart=async (req, res,next) => {
     try {
         const month = req.params.month;
         const selectedMonth=getMonth(month);
+
+        if(selectedMonth==0){
+           
+           return next(errorhandler(401,"Invalid month"));
+        }
 
         const maxPriceDoc = await Product.findOne().sort({ price: -1 });
 
@@ -67,14 +73,13 @@ for (let i = 0; i < numberOfRanges; i++) {
       
         res.json({
            "explanation": `explanation:_id is minimum value of range and count is number of sale in that range : for example `,
-           prettyresult:getPrettyresult(result,rangeSize),
+           Example:getPrettyresult(result,rangeSize),
             result
         }
         );
 
     } catch (error) {
-        console.error('Error fetching bar chart data:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+       next(error)
     }
 };
 

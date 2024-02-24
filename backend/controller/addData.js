@@ -1,11 +1,11 @@
 const Product=require("../model/product.js");
 
-module.exports.addData=async ()=> {
-    const apiUrl = 'https://s3.amazonaws.com/roxiler.com/product_transaction.json';
+module.exports.addData=async (req,res,next)=> {
+   try {
 
-    try {
-        const res = await fetch(apiUrl);
-        const data = await res.json();
+        const apiUrl = 'https://s3.amazonaws.com/roxiler.com/product_transaction.json';
+        const result = await fetch(apiUrl);
+        const data = await result.json();
         
      
 
@@ -14,6 +14,6 @@ module.exports.addData=async ()=> {
 
         return res.status(200).json("product created successfully");
     } catch (error) {
-        console.error('Error fetching data:', error);
+       next(error);
     }
 }

@@ -1,10 +1,15 @@
 const Product=require("../model/product.js");
 const {getMonth}=require("../utility/getMonth.js")
+const {errorhandler}=require("../utility/error.js")
 
-module.exports.piechart=async (req,res)=>{
+module.exports.piechart=async (req,res,next)=>{
   try{
     const month = req.params.month; // Get the selected month from the request parameters
      const selectedMonth= getMonth(month);
+     if(selectedMonth==0){
+     
+       return next(errorhandler(401,"Invalid month"));
+    }
     const pipeline=[ 
      {
         $match: {
@@ -32,6 +37,5 @@ const prettyresult = result.map(obj => ({
   res.json(prettyresult);
 
 } catch (error) {
-    console.error('Error fetching bar chart data:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+   next(error);
 }}
