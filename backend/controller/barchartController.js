@@ -71,11 +71,11 @@ for (let i = 0; i < numberOfRanges; i++) {
           
       
       
-        res.json({
-           "explanation": `explanation:_id is minimum value of range and count is number of sale in that range : for example `,
-           Example:getPrettyresult(result,rangeSize),
-            result
-        }
+        res.json(
+           
+           getPrettyresult(result,rangeSize)
+            
+        
         );
 
     } catch (error) {
