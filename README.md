@@ -22,6 +22,9 @@ Get
  endpoint : http://localhost:3000/api/statistics/allstatistics/june
 
 
+ -------------------------------------
+
+
 GET
  API for bar chart of products sold on different price range
  end point : http://localhost:3000/api/barchart/bar-chart/june
